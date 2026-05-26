@@ -7,7 +7,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
+@Entity
+@Table(name = "pedidos")
 public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,14 +32,13 @@ public class Pedido {
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
-    @OneToMany(mappedBy = "orden", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetallePedido> items = new ArrayList<>();
 
     public Pedido() {
     }
 
-    public Pedido(Long id, LocalDateTime fecha_pedido, EstadoPedido estado, BigDecimal total, String direccion_envio, Usuario usuario) {
-        this.id = id;
+    public Pedido(LocalDateTime fecha_pedido, EstadoPedido estado, BigDecimal total, String direccion_envio, Usuario usuario) {
         this.fecha_pedido = fecha_pedido;
         this.estado = estado;
         this.total = total;
