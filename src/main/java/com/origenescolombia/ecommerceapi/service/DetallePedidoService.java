@@ -39,7 +39,7 @@ public class DetallePedidoService {
 
     public DetallePedidoResponseDTO save(DetallePedidoRequestDTO dto){
         Pedido pedido=pedidoRepository.findById(dto.getPedidoId()).orElse(null);
-        Producto producto = productoRepository.findById(dto.getPedidoId()).orElse(null);
+        Producto producto = productoRepository.findById(dto.getProductoId()).orElse(null);
         DetallePedido item = new DetallePedido(pedido, dto.getPrecioUnitario(), producto, dto.getCantidad());
         return DetallePedidoResponseDTO.desde(detallePedidoRepository.save(item));
     }
