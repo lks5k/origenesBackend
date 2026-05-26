@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class PedidoRequestDTO {
     private LocalDateTime fecha;
     private EstadoPedido estado;
-    private Long clienteId;
+    private Long usuarioId;
     private BigDecimal total;
     private String direccion_envio;
 
@@ -31,12 +31,12 @@ public class PedidoRequestDTO {
         this.estado = estado;
     }
 
-    public Long getClienteId() {
-        return clienteId;
+    public Long getUsuarioId() {
+        return usuarioId;
     }
 
-    public void setClienteId(Long clienteId) {
-        this.clienteId = clienteId;
+    public void setUsuarioId(Long usuarioId) {
+        this.usuarioId = usuarioId;
     }
 
     public BigDecimal getTotal() {

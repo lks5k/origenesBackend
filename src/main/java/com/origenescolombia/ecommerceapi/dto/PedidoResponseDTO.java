@@ -10,8 +10,8 @@ public class PedidoResponseDTO {
     private Long id;
     private LocalDateTime fecha;
     private EstadoPedido estado;
-    private Long clienteId;
-    private String clienteNombre;
+    private Long usuarioId;
+    private String usuarioNombre;
 
     public PedidoResponseDTO() {
     }
@@ -21,8 +21,8 @@ public class PedidoResponseDTO {
         dto.id=pedido.getId();
         dto.fecha=pedido.getFecha_pedido();
         dto.estado=pedido.getEstado();
-        dto.clienteId=pedido.getUsuario().getId();
-        dto.clienteNombre=pedido.getUsuario().getNombre();
+        dto.usuarioId=pedido.getUsuario().getId();
+        dto.usuarioNombre=pedido.getUsuario().getNombre();
         return dto;
     }
 
@@ -50,19 +50,19 @@ public class PedidoResponseDTO {
         this.estado = estado;
     }
 
-    public Long getClienteId() {
-        return clienteId;
+    public Long getUsuarioId() {
+        return usuarioId;
     }
 
-    public void setClienteId(Long clienteId) {
-        this.clienteId = clienteId;
+    public void setUsuarioId(Long usuarioId) {
+        this.usuarioId = usuarioId;
     }
 
-    public String getClienteNombre() {
-        return clienteNombre;
+    public String getUsuarioNombre() {
+        return usuarioNombre;
     }
 
-    public void setClienteNombre(String clienteNombre) {
-        this.clienteNombre = clienteNombre;
+    public void setUsuarioNombre(String usuarioNombre) {
+        this.usuarioNombre = usuarioNombre;
     }
 }

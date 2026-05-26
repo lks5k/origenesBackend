@@ -34,14 +34,14 @@ public class PedidoService {
         return PedidoResponseDTO.desde(pedido);
     }
     public PedidoResponseDTO save(PedidoRequestDTO dto){
-        Usuario usuario=usuarioRepository.findById(dto.getClienteId()).orElse(null);
+        Usuario usuario=usuarioRepository.findById(dto.getUsuarioId()).orElse(null);
         Pedido pedido= new Pedido(dto.getFecha(),dto.getEstado(), dto.getTotal(), dto.getDireccion_envio(), usuario);
         return PedidoResponseDTO.desde(pedidoRepository.save(pedido));
     }
     public PedidoResponseDTO update(Long id, PedidoRequestDTO dto) {
         Pedido existente = pedidoRepository.findById(id).orElse(null);
         if (existente == null) return null;
-        Usuario usuario = usuarioRepository.findById(dto.getClienteId()).orElse(null);
+        Usuario usuario = usuarioRepository.findById(dto.getUsuarioId()).orElse(null);
         existente.setFecha_pedido(dto.getFecha());
         existente.setEstado(dto.getEstado());
         existente.setUsuario(usuario);
