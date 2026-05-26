@@ -7,7 +7,9 @@ import com.origenescolombia.ecommerceapi.model.Usuario;
 import com.origenescolombia.ecommerceapi.repository.PedidoRepository;
 import com.origenescolombia.ecommerceapi.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,14 +36,14 @@ public class PedidoService {
         return PedidoResponseDTO.desde(pedido);
     }
     public PedidoResponseDTO save(PedidoRequestDTO dto){
-        Usuario usuario=usuarioRepository.findById(dto.getClienteId()).orElse(null);
-        Pedido pedido= new Pedido(dto.getFecha(),dto.getEstado(), dto.getTotal(), dto.getDireccion_envio(), usuario);
+        Usuario usuario = buscarCliente(dto.getClienteId());
+        Pedido pedido = new Pedido(dto.getFecha(), dto.getEstado(), dto.getTotal(), dto.getDireccion_envio(), usuario);
         return PedidoResponseDTO.desde(pedidoRepository.save(pedido));
     }
     public PedidoResponseDTO update(Long id, PedidoRequestDTO dto) {
         Pedido existente = pedidoRepository.findById(id).orElse(null);
         if (existente == null) return null;
-        Usuario usuario = usuarioRepository.findById(dto.getClienteId()).orElse(null);
+        Usuario usuario = buscarCliente(dto.getClienteId());
         existente.setFecha_pedido(dto.getFecha());
         existente.setEstado(dto.getEstado());
         existente.setTotal(dto.getTotal());
@@ -54,5 +56,12 @@ public class PedidoService {
         pedidoRepository.deleteById(id);
     }
 
-
+    private Usuario buscarCliente(Long clienteId) {
+        if (clienteId == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "clienteId es obligatorio");
+        }
+        return usuarioRepository.findById(clienteId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cliente no encontrado"));
+    }
 }
+

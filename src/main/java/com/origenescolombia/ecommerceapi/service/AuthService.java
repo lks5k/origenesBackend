@@ -34,6 +34,8 @@ public class AuthService {
     }
 
     public AuthResponseDTO login(LoginRequestDTO request) {
+        validarEmailYPassword(request.getEmail(), request.getPassword());
+
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
@@ -46,6 +48,8 @@ public class AuthService {
     }
 
     public AuthResponseDTO registro(Usuario usuario) {
+        validarEmailYPassword(usuario.getEmail(), usuario.getPassword());
+
         if (usuarioRepository.existsByEmail(usuario.getEmail())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "El email ya está registrado");
         }
@@ -59,5 +63,11 @@ public class AuthService {
 
         String token = jwtService.generateToken(guardado);
         return new AuthResponseDTO(token, guardado);
+    }
+
+    private void validarEmailYPassword(String email, String password) {
+        if (email == null || email.isBlank() || password == null || password.isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email y contraseña son obligatorios");
+        }
     }
 }

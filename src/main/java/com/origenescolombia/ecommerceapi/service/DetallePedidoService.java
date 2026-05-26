@@ -9,7 +9,9 @@ import com.origenescolombia.ecommerceapi.repository.DetallePedidoRepository;
 import com.origenescolombia.ecommerceapi.repository.PedidoRepository;
 import com.origenescolombia.ecommerceapi.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,8 +40,10 @@ public class DetallePedidoService {
     }
 
     public DetallePedidoResponseDTO save(DetallePedidoRequestDTO dto){
-        Pedido pedido=pedidoRepository.findById(dto.getPedidoId()).orElse(null);
-        Producto producto = productoRepository.findById(dto.getProductoId()).orElse(null);
+        Pedido pedido = pedidoRepository.findById(dto.getPedidoId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Pedido no encontrado"));
+        Producto producto = productoRepository.findById(dto.getProductoId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Producto no encontrado"));
         DetallePedido item = new DetallePedido(pedido, dto.getPrecioUnitario(), producto, dto.getCantidad());
         return DetallePedidoResponseDTO.desde(detallePedidoRepository.save(item));
     }

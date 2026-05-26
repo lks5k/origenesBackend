@@ -20,8 +20,10 @@ public class PedidoResponseDTO {
         dto.id=pedido.getId();
         dto.fecha=pedido.getFecha_pedido();
         dto.estado=pedido.getEstado();
-        dto.clienteId=pedido.getUsuario().getId();
-        dto.clienteNombre=pedido.getUsuario().getNombre();
+        if (pedido.getUsuario() != null) {
+            dto.clienteId = pedido.getUsuario().getId();
+            dto.clienteNombre = pedido.getUsuario().getNombre();
+        }
         return dto;
     }
 

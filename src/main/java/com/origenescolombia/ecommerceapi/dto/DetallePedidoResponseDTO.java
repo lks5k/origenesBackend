@@ -15,9 +15,13 @@ public class DetallePedidoResponseDTO {
     public static DetallePedidoResponseDTO desde(DetallePedido item){
        DetallePedidoResponseDTO dto = new DetallePedidoResponseDTO();
        dto.id=item.getId();
-       dto.pedidoId= item.getPedido().getId();
-       dto.productoId=item.getProducto().getId();
-       dto.productoNombre=item.getProducto().getNombre();
+       if (item.getPedido() != null) {
+           dto.pedidoId = item.getPedido().getId();
+       }
+       if (item.getProducto() != null) {
+           dto.productoId = item.getProducto().getId();
+           dto.productoNombre = item.getProducto().getNombre();
+       }
        dto.cantidad=item.getCantidad();
        dto.precioUnitario=item.getPrecioUnitario();
        return dto;
