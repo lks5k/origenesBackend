@@ -2,27 +2,34 @@ package com.origenescolombia.ecommerceapi.service;
 
 import com.origenescolombia.ecommerceapi.model.Usuario;
 import com.origenescolombia.ecommerceapi.repository.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class UsuarioService {
-    private final UsuarioRepository usuarioRepository;
 
-    @Autowired
-    public UsuarioService(UsuarioRepository usuarioRepository) {
+    private final UsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
+        this.passwordEncoder = passwordEncoder;
     }
-    public List<Usuario> findAll(){
+
+    public List<Usuario> findAll() {
         return usuarioRepository.findAll();
     }
-    public Usuario findById(Long id){
+
+    public Usuario findById(Long id) {
         return usuarioRepository.findById(id).orElse(null);
     }
 
-    public Usuario save(Usuario cliente){
+    public Usuario save(Usuario cliente) {
+        if (cliente.getPassword() != null && !cliente.getPassword().isBlank()) {
+            cliente.setPassword(passwordEncoder.encode(cliente.getPassword()));
+        }
         return usuarioRepository.save(cliente);
     }
 
@@ -38,7 +45,7 @@ public class UsuarioService {
         return usuarioRepository.save(existente);
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         usuarioRepository.deleteById(id);
     }
 }

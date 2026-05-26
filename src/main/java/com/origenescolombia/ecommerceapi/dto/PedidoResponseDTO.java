@@ -4,7 +4,6 @@ import com.origenescolombia.ecommerceapi.model.EstadoPedido;
 import com.origenescolombia.ecommerceapi.model.Pedido;
 
 import java.time.LocalDateTime;
-import java.time.Period;
 
 public class PedidoResponseDTO {
     private Long id;

@@ -44,6 +44,8 @@ public class PedidoService {
         Usuario usuario = usuarioRepository.findById(dto.getClienteId()).orElse(null);
         existente.setFecha_pedido(dto.getFecha());
         existente.setEstado(dto.getEstado());
+        existente.setTotal(dto.getTotal());
+        existente.setDireccion_envio(dto.getDireccion_envio());
         existente.setUsuario(usuario);
         return PedidoResponseDTO.desde(pedidoRepository.save(existente));
     }
