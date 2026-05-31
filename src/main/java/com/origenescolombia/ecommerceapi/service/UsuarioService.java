@@ -45,10 +45,8 @@ public class UsuarioService {
         Usuario existente = usuarioRepository.findById(id).orElse(null);
         if (existente == null) return null;
         existente.setNombre(datos.getNombre());
-        existente.setApellido(datos.getApellido());
         existente.setEmail(datos.getEmail());
         existente.setTelefono(datos.getTelefono());
-        existente.setDireccion(datos.getDireccion());
         existente.setRol(datos.getRol());
         return usuarioRepository.save(existente);
     }
