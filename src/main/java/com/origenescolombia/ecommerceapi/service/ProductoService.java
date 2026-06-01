@@ -32,7 +32,8 @@ public class ProductoService {
         existente.setPrecio(datos.getPrecio());
         existente.setCantidad(datos.getCantidad());
         existente.setCategoria(datos.getCategoria());
-        existente.setMarca(datos.getMarca());
+        existente.setDescripcion(datos.getDescripcion());
+        existente.setDireccionurl(datos.getDireccionurl());
         return productoRepository.save(existente);
     }
 

@@ -28,20 +28,24 @@ public class Producto {
     @Column(nullable = false)
     private Categoria categoria;
 
-    @NotBlank(message = "Debe registrarse una marca")
+    @NotBlank(message = "Debe registrarse una descripcion")
     @Column(nullable = false)
-    private String marca;
+    private String descripcion;
+
+    @NotBlank(message = "Debe registrarse una url")
+    @Column(nullable = false)
+    private String direccionurl;
 
     public Producto() {
     }
 
-    public Producto(Long id, String nombre, Double precio, Integer cantidad, Categoria categoria, String marca) {
-        this.id = id;
+    public Producto(String nombre, Double precio, Integer cantidad, Categoria categoria, String descripcion, String direccionurl) {
         this.nombre = nombre;
         this.precio = precio;
         this.cantidad = cantidad;
         this.categoria = categoria;
-        this.marca = marca;
+        this.descripcion = descripcion;
+        this.direccionurl = direccionurl;
     }
 
     public Long getId() {
@@ -52,12 +56,12 @@ public class Producto {
         this.id = id;
     }
 
-    public String getMarca() {
-        return marca;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public Categoria getCategoria() {
@@ -90,5 +94,13 @@ public class Producto {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getDireccionurl() {
+        return direccionurl;
+    }
+
+    public void setDireccionurl(String direccionurl) {
+        this.direccionurl = direccionurl;
     }
 }
