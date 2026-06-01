@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +38,8 @@ public class PedidoService {
     }
     public PedidoResponseDTO save(PedidoRequestDTO dto){
         Usuario usuario = buscarCliente(dto.getClienteId());
-        Pedido pedido = new Pedido(dto.getFecha(), dto.getEstado(), dto.getTotal(), dto.getDireccion_envio(), usuario);
+        LocalDateTime fecha = dto.getFecha() != null ? dto.getFecha() : LocalDateTime.now();
+        Pedido pedido = new Pedido(fecha, dto.getEstado(), dto.getTotal(), dto.getDireccion_envio(), usuario);
         return PedidoResponseDTO.desde(pedidoRepository.save(pedido));
     }
     public PedidoResponseDTO update(Long id, PedidoRequestDTO dto) {

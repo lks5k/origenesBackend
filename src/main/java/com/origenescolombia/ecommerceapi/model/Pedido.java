@@ -15,7 +15,7 @@ public class Pedido {
     private Long id;
 
     @Column(nullable = false)
-    private LocalDateTime fecha_pedido;
+    private LocalDateTime fecha_pedido =LocalDateTime.now();
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

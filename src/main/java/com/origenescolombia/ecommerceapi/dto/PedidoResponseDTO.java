@@ -11,6 +11,7 @@ public class PedidoResponseDTO {
     private EstadoPedido estado;
     private Long clienteId;
     private String clienteNombre;
+    private java.math.BigDecimal total;
 
     public PedidoResponseDTO() {
     }
@@ -20,6 +21,7 @@ public class PedidoResponseDTO {
         dto.id=pedido.getId();
         dto.fecha=pedido.getFecha_pedido();
         dto.estado=pedido.getEstado();
+        dto.total = pedido.getTotal();
         if (pedido.getUsuario() != null) {
             dto.clienteId = pedido.getUsuario().getId();
             dto.clienteNombre = pedido.getUsuario().getNombre();
@@ -66,4 +68,7 @@ public class PedidoResponseDTO {
     public void setClienteNombre(String clienteNombre) {
         this.clienteNombre = clienteNombre;
     }
+
+    public java.math.BigDecimal getTotal() { return total; }
+    public void setTotal(java.math.BigDecimal total) { this.total = total; }
 }
