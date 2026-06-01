@@ -4,7 +4,7 @@ import com.origenescolombia.ecommerceapi.model.Rol;
 import com.origenescolombia.ecommerceapi.model.Usuario;
 
 public class AuthResponseDTO {
-
+    private Long id;
     private String token;
     private String email;
     private String nombre;
@@ -13,11 +13,15 @@ public class AuthResponseDTO {
     public AuthResponseDTO() {}
 
     public AuthResponseDTO(String token, Usuario usuario) {
+        this.id     = usuario.getId();
         this.token = token;
         this.email = usuario.getEmail();
         this.nombre = usuario.getNombre();
         this.rol = usuario.getRol();
     }
+
+    public Long getId()              { return id; }
+    public void setId(Long id)       { this.id = id; }
 
     public String getToken() {
         return token;
